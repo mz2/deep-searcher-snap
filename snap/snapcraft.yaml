@@ -37,5 +37,5 @@ parts:
       - python3.12-minimal
       - libpython3.12-stdlib
     override-build: |
-      craftctl build
+      craftctl default
       pip install deepsearcher[ollama,anthropic,voyageai,google,unstructured,azure-search,qdrant,docling,crawl4ai,sentence-transformers]
