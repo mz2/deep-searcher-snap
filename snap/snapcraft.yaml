@@ -1,0 +1,41 @@
+name: deepsearcher
+base: core24
+version: "0.0.2"
+summary: Open source deep research tool
+
+description: |
+  Open Source Deep Research Alternative to Reason and Search on Private Data. Written in Python.
+
+confinement: strict
+grade: stable
+
+apps:
+  deepsearcher:
+    command: bin/cli.sh
+    plugs:
+      - home
+      - removable-media
+      - network
+      - network-bind
+      - opengl
+
+parts:
+  launcher:
+    plugin: dump
+    source: ./snap/local
+    organize:
+      cli.sh: bin/cli.sh
+
+  deepsearcher:
+    plugin: python
+    source: https://github.com/mz2/deep-searcher
+    source-type: git
+    source-branch: config-path-cli-arg
+    stage-packages:
+      - python3
+      - python3.12
+      - python3.12-minimal
+      - libpython3.12-stdlib
+    override-build: |
+      craftctl build
+      pip install deepsearcher[ollama,anthropic,voyageai,google,unstructured,azure-search,qdrant,docling,crawl4ai,sentence-transformers]
